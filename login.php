@@ -1,4 +1,40 @@
 <?php require 'inc/head.php'; ?>
+
+<?php
+  // Definition des constantes et variables
+  
+  $errorMessage = '';
+ 
+  // Test de l'envoi du formulaire
+  if(!empty($_POST)) 
+  {
+    define('loginname',$_POST['loginname']);
+    // Les identifiants sont transmis ?
+    if(!empty($_POST['loginname'])) 
+    {
+      // Sont-ils les mêmes que les constantes ?
+      if($_POST['loginname'] !== loginname) 
+      {
+        $errorMessage = 'Mauvais login !';
+      }
+        else
+      {
+        // On ouvre la session
+        session_start();
+        // On enregistre le login en session
+        $_SESSION['loginname'] = loginname;
+        // On redirige vers le fichier admin.php
+        header('Location: index.php');
+        exit();
+      }
+    }
+      else
+    {
+      $errorMessage = 'Veuillez inscrire vos identifiants svp !';
+    }
+  }
+?>
+
 <div class="container" style="margin-top:40px">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
